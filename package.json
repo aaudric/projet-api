@@ -1,0 +1,30 @@
+{
+  "name": "express-api-starter",
+  "version": "1.0.0",
+  "description": "A starter for Express api projects",
+  "license": "MIT",
+  "type": "module",
+  "main": "./src/index.js",
+  "scripts": {
+    "dev": "nodemon",
+    "test": "cross-env NODE_ENV=test node --watch --test test/",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "pino-http": "^9.0.0"
+  },
+  "devDependencies": {
+    "@eslint/js": "^8.56.0",
+    "@stylistic/eslint-plugin": "^1.5.3",
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.4.1",
+    "eslint": "^8.56.0",
+    "globals": "^13.24.0",
+    "nodemon": "^3.0.2",
+    "supertest": "^6.3.3"
+  },
+  "engines": {
+    "node": "20"
+  }
+}
