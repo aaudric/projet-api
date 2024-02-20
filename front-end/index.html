@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Health Nutrition</title>
+    <style>
+        .recipe-container {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 20px;
+        }
+        .recipe-container img {
+            margin-right: 20px;
+            width: 300px; /* Adjust as needed */
+        }
+        .ingredients-container {
+            flex-grow: 1;
+        }
+    </style>
+</head>
+<body>
+    <center><h1>Health Nutrition</h1></center>
+    <div id="recipes"></div>
+    <script>
+        const url = "http://localhost:3000"; // Make sure this URL points to your backend server
+        
+        async function fetchApiData(url) {
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error(`HTTP Error: ${response.status}`);
+                }
+
+                const data = await response.json();
+                const recipesContainer = document.getElementById('recipes');
+
+                data.forEach(recipe => {
+                    const recipeDiv = document.createElement('div');
+                    recipeDiv.className = 'recipe-container';
+
+                    if (recipe.image) {
+                        const imageElement = document.createElement('img');
+                        imageElement.src = recipe.image;
+                        imageElement.alt = `Image of ${recipe.title}`;
+                        recipeDiv.appendChild(imageElement);
+                    }
+
+                    const ingredientsContainer = document.createElement('div');
+                    ingredientsContainer.className = 'ingredients-container';
+
+                    const titleElement = document.createElement('h2');
+                    titleElement.textContent = recipe.title;
+                    ingredientsContainer.appendChild(titleElement);
+
+                    const ingredientsTitle = document.createElement('h3');
+                    ingredientsTitle.textContent = 'Ingredients';
+                    ingredientsContainer.appendChild(ingredientsTitle);
+
+                    const ingredientsList = document.createElement('ul');
+                    recipe.analyzedInstructions.forEach((instruction) => {
+                        instruction.steps.forEach((step) => {
+                            step.ingredients.forEach((ingredient) => {
+                                const ingredientItem = document.createElement('li');
+                                ingredientItem.textContent = ingredient.name;
+                                ingredientsList.appendChild(ingredientItem);
+                            });
+                        });
+                    });
+                    ingredientsContainer.appendChild(ingredientsList);
+
+                    recipeDiv.appendChild(ingredientsContainer);
+                    recipesContainer.appendChild(recipeDiv);
+                });
+            } catch (error) {
+                console.error("Error fetching API data:", error);
+            }
+        }
+
+        fetchApiData(url);
+    </script>
+</body>
+</html>

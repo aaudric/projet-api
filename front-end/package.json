@@ -1,0 +1,19 @@
+{
+  "name": "front-end",
+  "version": "1.0.0",
+  "description": "front-end",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "light-server -s . -p 9090 -w \"./**/*.js, ./**/*.html\""
+
+  },
+  "keywords": [
+    "front-end"
+  ],
+  "author": "Audric Girondin",
+  "license": "ISC",
+  "dependencies": {
+    "light-server": "^2.9.1"
+  }
+}
