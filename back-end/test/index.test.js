@@ -2,20 +2,14 @@ import { describe, it } from 'node:test';
 import assert from 'node:assert';
 import request from 'supertest';
 import app from '../src/app.js';
-
-describe('GET /', () => {
-  it('should return homepage with 200 status code', async () => {
-    const response = await request(app).get('/');
-    assert.strictEqual(response.status, 200);
-  });
-});
+import 'dotenv/config';
 
 //Tests globaux pour l'application
 describe('Tests d\'application Express', () => {
   
   // Test for homepage 
   describe('GET /', () => {
-    it('should return homepage with 200 statut', async () => {
+    it('should return homepage with 200 status code', async () => {
       const response = await request(app).get('/');
       assert.strictEqual(response.status, 200);
     });
@@ -24,7 +18,7 @@ describe('Tests d\'application Express', () => {
   // Test pour une route inexistante
   describe('GET /', () => {
     it('should return 404 statut for roads not found', async () => {
-      const response = await request(app).get('/une-route-qui-n-existe-pas');
+      const response = await request(app).get('/false-road');
       assert.strictEqual(response.status, 404);
     });
   });
@@ -40,17 +34,6 @@ describe('Tests d\'application Express', () => {
     });
   });
 
-  // Test for a road with paramètres d'URL
-  describe('GET /', () => {
-    it('devrait retourner un utilisateur spécifique avec un statut 200', async () => {
-      const response = await request(app).get(`/`);
-      assert.strictEqual(response.status, 200);
-      const userId = response.body.id; // Assurez-vous que cette ligne correspond à la structure de votre réponse
-      assert.strictEqual(userId, 1);
-    });
-  });
 
-
-  
 
 });

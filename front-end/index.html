@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,7 +26,7 @@
     <center><h1>Health Nutrition</h1></center>
     <div id="recipes"></div>
     <script>
-        const url = "http://localhost:3000"; // Make sure this URL points to your backend server
+        const url = "http://localhost:3000"; // Assurez-vous que cette URL pointe vers votre serveur backend
         
         async function fetchApiData(url) {
             try {
@@ -33,44 +34,41 @@
                 if (!response.ok) {
                     throw new Error(`HTTP Error: ${response.status}`);
                 }
-
+    
                 const data = await response.json();
                 const recipesContainer = document.getElementById('recipes');
-
+    
                 data.forEach(recipe => {
                     const recipeDiv = document.createElement('div');
                     recipeDiv.className = 'recipe-container';
-
+    
                     if (recipe.image) {
                         const imageElement = document.createElement('img');
                         imageElement.src = recipe.image;
                         imageElement.alt = `Image of ${recipe.title}`;
                         recipeDiv.appendChild(imageElement);
                     }
-
+    
                     const ingredientsContainer = document.createElement('div');
                     ingredientsContainer.className = 'ingredients-container';
-
+    
                     const titleElement = document.createElement('h2');
                     titleElement.textContent = recipe.title;
                     ingredientsContainer.appendChild(titleElement);
-
+    
                     const ingredientsTitle = document.createElement('h3');
-                    ingredientsTitle.textContent = 'Ingredients';
+                    ingredientsTitle.textContent = 'Ingredients and NutriScores';
                     ingredientsContainer.appendChild(ingredientsTitle);
-
+    
                     const ingredientsList = document.createElement('ul');
-                    recipe.analyzedInstructions.forEach((instruction) => {
-                        instruction.steps.forEach((step) => {
-                            step.ingredients.forEach((ingredient) => {
-                                const ingredientItem = document.createElement('li');
-                                ingredientItem.textContent = ingredient.name;
-                                ingredientsList.appendChild(ingredientItem);
-                            });
-                        });
+                    recipe.ingredientsWithNutriScores.forEach((ingredient) => {
+                        const ingredientItem = document.createElement('li');
+                        // Modification ici pour inclure le NutriScore
+                        ingredientItem.textContent = `${ingredient.name}: NutriScore - ${ingredient.nutriScore}`;
+                        ingredientsList.appendChild(ingredientItem);
                     });
                     ingredientsContainer.appendChild(ingredientsList);
-
+    
                     recipeDiv.appendChild(ingredientsContainer);
                     recipesContainer.appendChild(recipeDiv);
                 });
@@ -78,8 +76,10 @@
                 console.error("Error fetching API data:", error);
             }
         }
-
+    
         fetchApiData(url);
     </script>
+    
 </body>
 </html>
+

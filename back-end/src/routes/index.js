@@ -1,41 +1,63 @@
 import { Router } from 'express';
-import 'dotenv/config.js';
+import fetch from 'node-fetch';
+// Import necessary modules
 
-// nouvelle instance routeur
+// Create a new router instance
 const router = Router();
-// api key who's situed in the file  .env
-const apiKey = process.env.SPOONACULAR_API_KEY;
 
-// Définition d'une route GET sur le chemin racine ('/') de ce routeur
+// Define a route handler for the root endpoint
 router.get('/', async (req, res) => {
-  // Récupération des paramètres de requête 'type' et 'number', avec des valeurs par défaut si non spécifiés
-  const type = req.query.type || 'healthy'; // Type de recettes à rechercher, 
-  const number = req.query.number || 10; // Nombre de recettes à retourner
+  const type = req.query.type || 'healthy';
+  const number = req.query.number || 10;
 
-  //URL pour l'API Spoonacular 
-  const url = `https://api.spoonacular.com/recipes/complexSearch?query=${type}&number=${number}&addRecipeInformation=true&apiKey=${apiKey}`;
+  const url = `https://api.spoonacular.com/recipes/complexSearch?query=${type}&number=${number}&addRecipeInformation=true&apiKey=${process.env.SPOONACULAR_API_KEY}`;
 
   try {
-    // Envoi de la requête à l'API Spoonacular et attente de la réponse avec await 
     const response = await fetch(url);
-    //   si erreur alors statut erreur
     if (!response.ok) {
-      // Lancement d'une exception si la réponse est une erreur, incluant le code de statut HTTP
-      throw new Error(`Erreur HTTP: ${response.status}`);
+      throw new Error(`HTTP Error: ${response.status}`);
     }
-    // Extraction et conversion de la réponse en JSON
+
     const data = await response.json();
-    const id = data.results.id;
-    // Envoi des résultats (partie 'results' de la réponse JSON) au client
-    res.json(data.results);    
+    const recipes = data.results;
+
+    // Traitement asynchrone des ingrédients pour chaque recette
+    await Promise.all(recipes.map(async (recipe) => {
+      // Assurez-vous que la structure des données correspond à ce que vous attendez
+      const ingredientPromises = recipe.analyzedInstructions[0]?.steps.flatMap(step => step.ingredients).map(async (ingredient) => {
+        const ingredientName = ingredient.name;
+        const url2 = `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${encodeURIComponent(ingredientName)}&fields=product_name,nutriscore_grade&json=true`;
+        try {
+          const response2 = await fetch(url2);
+          if (!response2.ok) {
+            throw new Error(`HTTP Error: ${response2.status}`);
+          }
+          const data2 = await response2.json();
+          if (data2.products.length > 0) {
+            return { name: ingredientName, nutriScore: data2.products[0].nutriscore_grade || 'Unknown' };
+          } else {
+            return { name: ingredientName, nutriScore: 'Not Found' };
+          }
+        } catch (error) {
+          console.error(`Error retrieving Nutri-Score for ${ingredientName}:`, error);
+          return { name: ingredientName, nutriScore: 'Error retrieving Nutri-Score' };
+        }
+      });
+
+      // Attendre que toutes les promesses pour les ingrédients d'une recette soient résolues
+      const ingredientsWithScores = await Promise.all(ingredientPromises);
+      recipe.ingredientsWithNutriScores = ingredientsWithScores;
+    }));
+
+    // Envoyer les recettes enrichies en réponse
+    res.json(recipes);
   } catch (error) {
-    // Gestion des erreurs, notamment les erreurs réseau ou de l'API Spoonacular
-    console.error('Erreur lors de la récupération des recettes:', error);
-    // Envoi d'une réponse d'erreur 500 (Erreur Interne du Serveur) au client avec un message d'erreur
-    res.status(500).json({ error: 'Erreur lors de la récupération des recettes' });
+    console.error('Error retrieving recipes:', error);
+    res.status(500).json({ error: 'Error retrieving recipes' });
   }
 });
 
-// Exportation du routeur pour son utilisation dans le fichier principal de l'application Express
+
+// Export the router as the default module
 export default router;
 
