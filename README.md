@@ -1,13 +1,13 @@
-# Health Nutrition Recipes
+#  Nutrition Recipes
 
 ## Description
 
-Health Nutrition Recipes est une application web qui permet aux utilisateurs de découvrir des recettes saines pour divers besoins diététiques. L'application récupère les données de recettes via une API backend et affiche les recettes avec des détails tels que les ingrédients, les instructions de préparation, et les informations nutritionnelles.
+ Nutrition Recipes est une application web qui permet aux utilisateurs de découvrir des recettes. L'application récupère les données de recettes via deux API backend, l'une affichant les recettes avec des détails tels que les ingrédients et l'autre les informations nutritionnelles asssociées aux ingrédients de la recette.
 
 ## Fonctionnalités
 
-- Affichage de recettes saines avec options pour végétariens, végétaliens, sans gluten et sans lactose.
-- Détails de recettes incluant les ingrédients, les instructions de préparation, et les informations nutritionnelles.
+- Affichage de recettes en choisissant le type de recttes, le type de cuisne et le nombre de rectte à afficher.
+- Détails de recettes incluant les ingrédients et les informations nutritionnelles.
 - Interface utilisateur simple et réactive adaptée à tous les appareils.
 
 ## Technologie Utilisée
@@ -20,7 +20,7 @@ Health Nutrition Recipes est une application web qui permet aux utilisateurs de 
 
 Assurez-vous d'avoir Node.js installé sur votre machine. Vous pouvez le télécharger et l'installer à partir de [Node.js official website](https://nodejs.org/).
 
-### Configuration du Backend
+### Configuration et Lancement du Backend
 
 1. Clonez le dépôt de l'application ou téléchargez les fichiers source.
 2. Naviguez dans le dossier backend de l'application via un terminal.
@@ -30,7 +30,7 @@ Assurez-vous d'avoir Node.js installé sur votre machine. Vous pouvez le téléc
     PORT=3000
     SPOONACULAR_API_KEY=VotreCléAPIIci
     ```
-5. Lancez le serveur backend en exécutant `node app.js` ou `nodemon app.js` si vous avez `nodemon` installé.
+5. Lancez le serveur backend en exécutant soit `node app.js`, `npm run dev` ou nodemon app.js` si vous avez `nodemon` installé.
 
 ### Configuration et Lancement du Frontend
 

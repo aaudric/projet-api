@@ -1,85 +1,137 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Health Nutrition</title>
-    <style>
-        .recipe-container {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 20px;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 20px;
-        }
-        .recipe-container img {
-            margin-right: 20px;
-            width: 300px; /* Adjust as needed */
-        }
-        .ingredients-container {
-            flex-grow: 1;
-        }
-    </style>
+    <title> Recipes and Nutrition </title>
+    <link rel="stylesheet" href="front-end.css">
 </head>
 <body>
-    <center><h1>Health Nutrition</h1></center>
+    <center><h1> Recipes and Nutrition </h1></center>
+    <div id="recipe-settings">
+        <label for="recipe-type">Type de recette :</label>
+            <select id="recipe-type">
+                <option value="healthy">Healthy</option>
+                <option value="quick">Quick</option>
+                <option value="vegetarian">Vegetarian</option>
+                <option value="vegan">Vegan</option>
+                <option value="main course">Main course</option>
+                <option value="side dish">Side dish</option>
+                <option value="dessert">Dessert</option>
+                <option value="snack">Snack</option>
+                <option value="drink">Drink</option>
+                <option value="breakfast">Breakfast</option>
+            </select>
+
+            <label for="cuisine-type">Type de cuisine :</label>
+            <select id="cuisine-type">
+                <option value="African">African</option>
+                <option value="Asian">Asian</option>
+                <option value="American">American</option>
+                <option value="British">British</option>
+                <option value="Cajun">Cajun</option>
+                <option value="Caribbean">Caribbean</option>
+                <option value="Chinese">Chinese</option>
+                <option value="Eastern European">Eastern European</option>
+                <option value="European">European</option>
+                <option value="French">French</option>
+                <option value="German">German</option>
+                <option value="Mexican">Mexican</option>
+                <option value="Thai">Thai</option>Spanish
+                <option value="Spanish">Spanish</option>
+                <option value="Japanese">Japanese</option>
+                <option value="Italian">Italian</option>
+                <option value="Indian">Indian</option>
+                <option value="Vietnamese">Vietnamese</option>
+            </select>
+
+        <label for="recipe-number">Nombre de recettes :</label>
+        <input id="recipe-number" type="number" min="1" max="100" value="1" required>
+        <button id="load-recipes">Charger les recettes</button>
+    </div>
+    <br/>
     <div id="recipes"></div>
     <script>
-        const url = "http://localhost:3000"; // Assurez-vous que cette URL pointe vers votre serveur backend
         
-        async function fetchApiData(url) {
+        // Define the URL for your backend server. Make sure this URL points correctly.
+        const url = "http://localhost:3000";
+
+        // Function to fetch recipe data from the backend using async/await syntax.
+        async function fetchApiData(urlWithParams) {
             try {
-                const response = await fetch(url);
+                // Perform the fetch request using the URL with parameters.
+                const response = await fetch(urlWithParams);
+                // Check if the response status is not OK (200-299).
                 if (!response.ok) {
                     throw new Error(`HTTP Error: ${response.status}`);
                 }
-    
+
+                // Parse the JSON response into a JavaScript object.
                 const data = await response.json();
+                // Get the container element where recipes will be displayed.
                 const recipesContainer = document.getElementById('recipes');
-    
+                // Clear any previous recipe data from the container before displaying new recipes.
+                recipesContainer.innerHTML = '';
+
+                // Loop through each recipe in the data array.
                 data.forEach(recipe => {
+                    // Create a new div element for each recipe.
                     const recipeDiv = document.createElement('div');
                     recipeDiv.className = 'recipe-container';
-    
+
+                    // If the recipe includes an image, create and append an img element.
                     if (recipe.image) {
                         const imageElement = document.createElement('img');
                         imageElement.src = recipe.image;
                         imageElement.alt = `Image of ${recipe.title}`;
                         recipeDiv.appendChild(imageElement);
                     }
-    
+
+                    // Create a container for the ingredients list.
                     const ingredientsContainer = document.createElement('div');
                     ingredientsContainer.className = 'ingredients-container';
-    
+
+                    // Add the recipe title as an h2 element.
                     const titleElement = document.createElement('h2');
                     titleElement.textContent = recipe.title;
                     ingredientsContainer.appendChild(titleElement);
-    
+
+                    // Add a subtitle for the ingredients list.
                     const ingredientsTitle = document.createElement('h3');
                     ingredientsTitle.textContent = 'Ingredients and NutriScores';
                     ingredientsContainer.appendChild(ingredientsTitle);
-    
+
+                    // Create an unordered list for the ingredients and their NutriScores.
                     const ingredientsList = document.createElement('ul');
                     recipe.ingredientsWithNutriScores.forEach((ingredient) => {
                         const ingredientItem = document.createElement('li');
-                        // Modification ici pour inclure le NutriScore
-                        ingredientItem.textContent = `${ingredient.name}: NutriScore - ${ingredient.nutriScore}`;
+                        // Display each ingredient and its NutriScore, converting the score to uppercase.
+                        ingredientItem.textContent = `${ingredient.name} : ` + `${ingredient.nutriScore}`.toUpperCase();
                         ingredientsList.appendChild(ingredientItem);
                     });
                     ingredientsContainer.appendChild(ingredientsList);
-    
+
+                    // Append the ingredients container to the recipe div, and the recipe div to the main container.
                     recipeDiv.appendChild(ingredientsContainer);
                     recipesContainer.appendChild(recipeDiv);
                 });
             } catch (error) {
+                // Log any errors that occur during the fetch operation.
                 console.error("Error fetching API data:", error);
             }
         }
-    
-        fetchApiData(url);
+
+        // Add an event listener for the 'click' event on the 'load-recipes' button.
+        document.getElementById('load-recipes').addEventListener('click', () => {
+            // Retrieve the selected number of recipes, recipe type, and cuisine type from the form inputs.
+            const numberOfRecipes = document.getElementById('recipe-number').value;
+            const recipeType = document.getElementById('recipe-type').value;
+            const cuisineType = document.getElementById('cuisine-type').value;
+            // Call the fetchApiData function with the constructed URL including query parameters.
+            fetchApiData(`${url}?type=${recipeType}&number=${numberOfRecipes}&cuisine=${cuisineType}`);
+        });
+
     </script>
     
 </body>
 </html>
-
