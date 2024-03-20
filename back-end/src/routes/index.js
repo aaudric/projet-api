@@ -1,38 +1,63 @@
-import { Router } from 'express';
-import fetch from 'node-fetch';
-// Import necessary modules
-
-// Create a new router instance
-const router = Router();
-
 /**
  * @swagger
- * api/recipes:
+ * /:
  *   get:
- *     summary: Returns a list of recipes
+ *     summary: Fetch recipes based on query parameters
+ *     description: Fetches recipes from the Spoonacular API based on the provided query parameters.
  *     parameters:
- *       - in: query
- *         name: type
+ *       - name: type
+ *         in: query
+ *         description: The type of recipes to fetch (e.g., healthy, vegetarian).
  *         schema:
  *           type: string
- *         description: Type of the recipe
- *       - in: query
- *         name: number
+ *       - name: number
+ *         in: query
+ *         description: The number of recipes to fetch.
  *         schema:
  *           type: integer
- *         description: Number of recipes to return
+ *       - name: cuisine
+ *         in: query
+ *         description: The cuisine of the recipes to fetch (e.g., Italian, Mexican).
+ *         schema:
+ *           type: string
  *     responses:
- *       200:
- *         description: A list of recipes
+ *       '200':
+ *         description: OK. Returns the fetched recipes.
  *         content:
  *           application/json:
  *             schema:
  *               type: array
  *               items:
  *                 $ref: '#/components/schemas/Recipe'
+ *       '400':
+ *         description: Bad Request. Invalid query parameters provided.
+ *       '500':
+ *         description: Internal Server Error. Failed to fetch recipes.
  */
 
+/**
+ * @typedef IngredientWithNutriScore
+ * @property {string} name - The name of the ingredient.
+ * @property {string} nutriScore - The Nutri-Score of the ingredient.
+ */
 
+/**
+ * @typedef Recipe
+ * @property {string} id - The ID of the recipe.
+ * @property {string} title - The title of the recipe.
+ * @property {string} image - The URL of the recipe image.
+ * @property {Array<IngredientWithNutriScore>} ingredientsWithNutriScores - The ingredients of the recipe with their Nutri-Scores.
+ */
+
+/**
+ * @module routes/index
+ */
+
+import { Router } from 'express';
+import fetch from 'node-fetch';
+
+// Create a new router instance
+const router = Router();
 
 // Route handler for fetching recipes based on query parameters
 router.get('/', async (req, res) => {

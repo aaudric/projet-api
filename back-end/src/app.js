@@ -26,7 +26,7 @@ const swaggerOptions = {
       ],
     },
     // Chemin vers les fichiers contenant les commentaires de documentation de l'API
-    apis: ['./routes/index.js'], // Assurez-vous que ce chemin correspond à votre structure de projet
+    apis: ['./src/routes/*.js'], // Assurez-vous que ce chemin correspond à votre structure de projet
   };
 
 const swaggerDocs = swaggerJSDoc(swaggerOptions);
