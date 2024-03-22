@@ -2,15 +2,17 @@ import cors from 'cors';
 import express from 'express';
 import logger from 'pino-http';
 import indexRoute from './routes/index.js';
+import recipes from './routes/recipes.js';
+import nutriscore from './routes/nutriscore.js';
+import recipeIngredient from './routes/recipeIngredient.js';
 import swaggerUi from 'swagger-ui-express';
 import swaggerJSDoc from 'swagger-jsdoc';
-
 
 
 // Initialize the express app
 const app = express();  
 
-// Définition de l'objet d'options pour swagger-jsdoc
+// Setting options object for swagger-jsdoc
 const swaggerOptions = {
     definition: {
       openapi: '3.1.0',
@@ -25,8 +27,8 @@ const swaggerOptions = {
         }
       ],
     },
-    // Chemin vers les fichiers contenant les commentaires de documentation de l'API
-    apis: ['./src/routes/*.js'], // Assurez-vous que ce chemin correspond à votre structure de projet
+    // Road to our Routes with the comments for API's documentation 
+    apis: ['./src/routes/*.js'], 
   };
 
 const swaggerDocs = swaggerJSDoc(swaggerOptions);
@@ -46,6 +48,12 @@ app.use(logger({ level: process.env.NODE_ENV === 'test' ? 'error' : 'info' }));
 
 // Set up routes
 app.use('/', indexRoute);
+
+app.use('/', recipes);
+
+app.use('/',nutriscore);
+
+app.use('/',recipeIngredient);
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs)) ;
 

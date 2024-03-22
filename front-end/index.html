@@ -54,7 +54,7 @@
     <script>
         
         // Define the URL for your backend server. Make sure this URL points correctly.
-        const url = "http://localhost:3000";
+        const url = "http://localhost:3000/recipeIngredient";
 
         // Function to fetch recipe data from the backend using async/await syntax.
         async function fetchApiData(urlWithParams) {
@@ -103,7 +103,7 @@
 
                     // Create an unordered list for the ingredients and their NutriScores.
                     const ingredientsList = document.createElement('ul');
-                    recipe.ingredientsWithNutriScores.forEach((ingredient) => {
+                    recipe.extendedIngredients.forEach((ingredient) => {
                         const ingredientItem = document.createElement('li');
                         // Display each ingredient and its NutriScore, converting the score to uppercase.
                         ingredientItem.textContent = `${ingredient.name} : ` + `${ingredient.nutriScore}`.toUpperCase();

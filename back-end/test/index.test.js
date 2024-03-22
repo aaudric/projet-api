@@ -14,7 +14,7 @@ import nock from 'nock';
     });
   });
 
-  // Test pour une route inexistante
+  // Test for a false road
   describe('GET /', () => {
     it('should return 404 statut for roads not found', async () => {
       const response = await request(app).get('/false-road');
@@ -22,8 +22,33 @@ import nock from 'nock';
     });
   });
 
-  // Test for a road who return a JSON
   describe('GET /', () => {
+    it('should return homepage with 200 status code and body containing "Hello World"', async () => {
+      const response = await request(app).get('/');
+      assert.strictEqual(response.status, 200);
+      assert.strictEqual(response.text, 'Hello World'); 
+    });
+  });
+  
+
+// RECIPES
+  describe('GET /recipes', () => {
+    it('should return homepage with 200 status code', async () => {
+      const response = await request(app).get('/');
+      assert.strictEqual(response.status, 200);
+    });
+  });
+
+  // Test for a false road
+  describe('GET /recipes', () => {
+    it('should return 404 statut for roads not found', async () => {
+      const response = await request(app).get('/false-road');
+      assert.strictEqual(response.status, 404);
+    });
+  });
+
+  // Test for a road who return a JSON
+  describe('GET /recipes', () => {
     it('should return JSON data with 200 statut ', async () => {
       const response = await request(app).get('/');
       assert.strictEqual(response.status, 200);
@@ -33,8 +58,27 @@ import nock from 'nock';
     });
   });
 
+
+
+
+// NUTRISCORE
+  describe('GET /nutriscore', () => {
+    it('should return homepage with 200 status code', async () => {
+      const response = await request(app).get('/');
+      assert.strictEqual(response.status, 200);
+    });
+  });
+
+  // Test for a false road
+  describe('GET /nutriscore', () => {
+    it('should return 404 statut for roads not found', async () => {
+      const response = await request(app).get('/false-road');
+      assert.strictEqual(response.status, 404);
+    });
+  });
+  
     // Test de la récupération des recettes
-  describe('GET /', () => {
+  describe('GET /recipes', () => {
     it('should return a list of recipes', async () => {
       const response = await request(app).get('/?query=ype=healthy&number=5');
       assert.strictEqual(response.statusCode, 200);
@@ -42,6 +86,7 @@ import nock from 'nock';
       assert.ok(response.body.length > 0, 'Response body should not be empty');
     });
   });
+
 
   describe('GET / (Fetching recipes and enriching with Nutri-Score)', () => {
     it('should return enriched recipes data', async () => {

@@ -15,6 +15,7 @@
 - **Frontend** : HTML, CSS, JavaScript - pour construire l'interface utilisateur.
 - **Backend** : Node.js, Express - pour l'API de récupération des recettes.
 - **API de Recettes** : Spoonacular API - pour obtenir les données de recettes.
+- **API de Nutriscore** : Open Food Facts - pour obtenir le nutriscore des ingrédients
 
 ## Installation et Configuration
 
