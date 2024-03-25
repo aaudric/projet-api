@@ -55,7 +55,7 @@ import fetch from 'node-fetch';
 const router = Router();
 router.get('/nutriscore', async (req, res) => {
     // Define the ingredient
-    const ingredient = "Tomato";
+    const ingredient = req.query.ingredient||"Tomato" ;
     // Construct the URL for the API request
     const url = `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${encodeURIComponent(ingredient)}&fields=product_name,nutriscore_grade&json=true`;
     try {

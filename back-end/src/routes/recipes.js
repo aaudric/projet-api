@@ -33,13 +33,13 @@ import 'dotenv/config';
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/RecipesResponse'
+ *               type : object
  *       '500':
  *         description: Internal server error occurred while retrieving recipes
  *         content:
  *           application/json:
  *             schema:
- *               $ref: '#/components/schemas/ErrorResponse'
+ *              type: object
  */
 
 

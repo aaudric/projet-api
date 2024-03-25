@@ -3,7 +3,76 @@ import fetch from 'node-fetch';
 
 // Create a new router instance
 const router = Router();
-
+/**
+ * @swagger
+ * /recipeIngredient:
+ *   get:
+ *     summary: Get enriched recipes with ingredient information
+ *     description: Retrieve a list of enriched recipes with ingredient information, including Nutri-Score.
+ *     parameters:
+ *       - in: query
+ *         name: type
+ *         schema:
+ *           type: string
+ *         description: The type of recipes to retrieve (e.g., healthy, vegetarian).
+ *       - in: query
+ *         name: number
+ *         schema:
+ *           type: integer
+ *         description: The number of recipes to retrieve.
+ *       - in: query
+ *         name: cuisine
+ *         schema:
+ *           type: string
+ *         description: The cuisine of the recipes to retrieve (e.g., Italian, Mexican).
+ *     responses:
+ *       '200':
+ *         description: A list of enriched recipes with ingredient information.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/EnrichedRecipe'
+ *       '500':
+ *         description: An error occurred while retrieving the recipes.
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 error:
+ *                   type: string
+ *                   description: The error message.
+ * components:
+ *   schemas:
+ *     EnrichedRecipe:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *           description: The ID of the recipe.
+ *         title:
+ *           type: string
+ *           description: The title of the recipe.
+ *         extendedIngredients:
+ *           type: array
+ *           items:
+ *             $ref: '#/components/schemas/EnrichedIngredient'
+ *           description: The list of enriched ingredients.
+ *     EnrichedIngredient:
+ *       type: object
+ *       properties:
+ *         id:
+ *           type: integer
+ *           description: The ID of the ingredient.
+ *         name:
+ *           type: string
+ *           description: The name of the ingredient.
+ *         nutriScore:
+ *           type: string
+ *           description: The Nutri-Score of the ingredient.
+ */
 router.get('/recipeIngredient', async (req, res) => {
     // Paramètres de la requête à la première API
     const type = req.query.type || 'healthy';

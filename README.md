@@ -58,4 +58,10 @@ Le frontend utilise Lite Server pour un rechargement automatique lors du dévelo
 Après avoir configuré et lancé le backend, et exécuté `npm run dev` pour le frontend, votre application devrait être accessible via le navigateur à l'adresse indiquée par Lite Server.
 
 
+## Documentation et Test de l'API avec Swagger
 
+L'API de Nutrition Recipes peut être testée et explorée à l'aide de Swagger UI. Après avoir lancé le serveur backend, vous pouvez accéder à Swagger UI à l'adresse suivante : 
+```
+http://localhost:3000/api-docs 
+```
+Cette interface utilisateur de Swagger vous permet de voir toutes les routes disponibles, les modèles de données, et vous offre la possibilité d'envoyer des requêtes test directement depuis votre navigateur. C'est un excellent moyen de découvrir comment interagir avec l'API et de tester ses différentes fonctionnalités en temps réel.
