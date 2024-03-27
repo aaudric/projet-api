@@ -62,9 +62,9 @@ router.get('/recipes', async (req, res) => {
         const recipesResponse = await fetch(recipesUrl);
         if (!recipesResponse.ok) throw new Error(`HTTP Error: ${recipesResponse.status}`);
         const recipesData = await recipesResponse.json();
-        
         // Send the retrieved recipes as a JSON response
         res.json(recipesData);
+        
     } catch (error) {
         // Handle errors and send an error response
         console.error(`Error retrieving recipes:`, error);
