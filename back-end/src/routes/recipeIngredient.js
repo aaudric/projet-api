@@ -73,8 +73,9 @@ const router = Router();
  *           type: string
  *           description: The Nutri-Score of the ingredient.
  */
+
 router.get('/recipeIngredient', async (req, res) => {
-    // Paramètres de la requête à la première API
+ 
     const type = req.query.type || 'healthy';
     const number = req.query.number || 10;
     const cuisine = req.query.cuisine || 'Italian';
@@ -86,10 +87,10 @@ router.get('/recipeIngredient', async (req, res) => {
         if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
         const data = await response.json();
         
-        // Traitement asynchrone pour chaque recette
+        // Asynchronous processing for each recipe
         const enrichedRecipes = await Promise.all(data.results.map(async (recipe) => {
             const enrichedIngredients = await Promise.all(recipe.extendedIngredients.map(async (ingredient) => {
-                // Construction de l'URL pour la seconde API
+                // Building the URL for the second API
                 const nutriScoreUrl = `https://world.openfoodfacts.org/cgi/search.pl?search_terms=${encodeURIComponent(ingredient.name)}&fields=product_name,nutriscore_grade&json=true`;
                 
                 try {
@@ -106,7 +107,7 @@ router.get('/recipeIngredient', async (req, res) => {
                 return ingredient;
             }));
             
-            // Ajout des ingrédients enrichis à la recette
+            // Adding enriched ingredients to the recipe
             recipe.extendedIngredients = enrichedIngredients;
             return recipe;
         }));

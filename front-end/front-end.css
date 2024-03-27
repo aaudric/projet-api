@@ -20,7 +20,7 @@ h1{
   border: 1px solid #ddd;
   border-radius: 4px;
   transition: all 0.3s ease;
-  margin-right: 10px; /* Assure une marge entre les éléments du formulaire */
+  margin-right: 10px; 
 }
 
 #recipe-settings label {
