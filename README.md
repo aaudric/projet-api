@@ -1,4 +1,4 @@
-#  Nutrition Recipes
+#  Recipes & Nutrition 
 
 ## Description
 
@@ -65,3 +65,15 @@ L'API de Nutrition Recipes peut être testée et explorée à l'aide de Swagger 
 http://localhost:3000/api-docs 
 ```
 Cette interface utilisateur de Swagger vous permet de voir toutes les routes disponibles, les modèles de données, et vous offre la possibilité d'envoyer des requêtes test directement depuis votre navigateur. C'est un excellent moyen de découvrir comment interagir avec l'API et de tester ses différentes fonctionnalités en temps réel.
+
+## Crédits
+
+Ce projet a été réalisé par :
+
+- **GIRONDIN Audric** 
+- **DUCKES Jonathan**
+
+Nous tenons à remercier nos enseignants pour leurs aides et conseils qui nous ont été très utiles que ce soit par leurs idées, leur temps ou leurs compétences.
+
+- **PAILLOT Thomas**
+- **GRESSE Hugo**

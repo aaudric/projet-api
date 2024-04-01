@@ -48,7 +48,7 @@ import nock from 'nock';
     });
   });
 
-  // Test for a road who return a JSON
+  // Test for a road who return a Text html
   describe('GET /recipes', () => {
     it('should return JSON data with 200 statut ', async () => {
       const response = await request(app).get('/');
@@ -61,7 +61,7 @@ import nock from 'nock';
   // Test for a list of recipes
   describe('GET /recipes', () => {
     it('should return a list of recipes', async () => {
-      const response = await request(app).get('/?query=ype=healthy&number=5');
+      const response = await request(app).get('/?query=type=healthy&number=5');
       assert.strictEqual(response.statusCode, 200);
       assert(response.body != null);
     });
@@ -85,7 +85,7 @@ import nock from 'nock';
     });
   });
 
-  // Test for a road who return a JSON
+  // Test for a road who return a html
   describe('GET /nutriscore', () => {
     it('should return JSON data with 200 statut ', async () => {
       const response = await request(app).get('/');
