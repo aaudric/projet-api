@@ -32,8 +32,7 @@ const router = Router();
  *           application/json:
  *             schema:
  *               type: array
- *               items:
- *                 $ref: '#/components/schemas/EnrichedRecipe'
+ *               
  *       '500':
  *         description: An error occurred while retrieving the recipes.
  *         content:
@@ -44,34 +43,7 @@ const router = Router();
  *                 error:
  *                   type: string
  *                   description: The error message.
- * components:
- *   schemas:
- *     EnrichedRecipe:
- *       type: object
- *       properties:
- *         id:
- *           type: integer
- *           description: The ID of the recipe.
- *         title:
- *           type: string
- *           description: The title of the recipe.
- *         extendedIngredients:
- *           type: array
- *           items:
- *             $ref: '#/components/schemas/EnrichedIngredient'
- *           description: The list of enriched ingredients.
- *     EnrichedIngredient:
- *       type: object
- *       properties:
- *         id:
- *           type: integer
- *           description: The ID of the ingredient.
- *         name:
- *           type: string
- *           description: The name of the ingredient.
- *         nutriScore:
- *           type: string
- *           description: The Nutri-Score of the ingredient.
+ *
  */
 
 router.get('/recipeIngredient', async (req, res) => {
