@@ -8,7 +8,7 @@
   - [Description](#description)
   - [Démonstration](#démonstration)
   - [Fonctionnalités](#fonctionnalités)
-  - [Technologie Utilisée](#technologie-utilisée)
+  - [Technologies Utilisées](#technologies-utilisées)
   - [Installation et Configuration](#installation-et-configuration)
     - [Configuration et Lancement du Backend](#configuration-et-lancement-du-backend)
     - [Configuration et Lancement du Frontend](#configuration-et-lancement-du-frontend)
@@ -30,7 +30,7 @@
 - Détails de recettes incluant les ingrédients et les informations nutritionnelles.
 - Interface utilisateur simple et réactive adaptée à tous les appareils.
 
-## Technologie Utilisée
+## Technologies Utilisées
 
 - **Frontend** : HTML, CSS, JavaScript - pour construire l'interface utilisateur.
 - **Backend** : Node.js, Express - pour l'API de récupération des recettes.
