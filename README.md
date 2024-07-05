@@ -22,7 +22,10 @@
 
 ## Démonstration
 
-![Vidéo de démonstration](Démo.mov)
+<video  controls>
+  <source src="Démo.mov" type="video/mp4">
+  Your browser does not support the video tag.
+</video>
 
 ## Fonctionnalités
 
@@ -91,7 +94,7 @@ Cette interface utilisateur de Swagger vous permet de voir toutes les routes dis
 Ce projet a été réalisé par :
 
 - **GIRONDIN Audric** 
-- **DUCKES Jonathan**
+- [**DUCKES Jonathan**](https://github.com/jonathanduc)
 
 Nous tenons à remercier nos enseignants pour leurs aides et conseils qui nous ont été très utiles que ce soit par leurs idées, leur temps ou leurs compétences.
 
