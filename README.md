@@ -1,8 +1,28 @@
 #  Recipes & Nutrition 
 
+
+## Table of Contents
+
+- [Recipes \& Nutrition](#recipes--nutrition)
+  - [Table of Contents](#table-of-contents)
+  - [Description](#description)
+  - [Démonstration](#démonstration)
+  - [Fonctionnalités](#fonctionnalités)
+  - [Technologie Utilisée](#technologie-utilisée)
+  - [Installation et Configuration](#installation-et-configuration)
+    - [Configuration et Lancement du Backend](#configuration-et-lancement-du-backend)
+    - [Configuration et Lancement du Frontend](#configuration-et-lancement-du-frontend)
+  - [Lancement de l'Application](#lancement-de-lapplication)
+  - [Documentation et Test de l'API avec Swagger](#documentation-et-test-de-lapi-avec-swagger)
+  - [Crédits](#crédits)
+
 ## Description
 
  Nutrition Recipes est une application web qui permet aux utilisateurs de découvrir des recettes. L'application récupère les données de recettes via deux API backend, l'une affichant les recettes avec des détails tels que les ingrédients et l'autre les informations nutritionnelles asssociées aux ingrédients de la recette.
+
+## Démonstration
+
+![Vidéo de démonstration](Démo.mov)
 
 ## Fonctionnalités
 
