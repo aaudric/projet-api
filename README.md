@@ -22,8 +22,8 @@
 
 ## Démonstration
 
-<video  controls>
-  <source src="Démo.mov" type="video/mp4">
+<video  width="320" height="240" controls>
+  <source src="Démo.mp4" type="video/mp4">
   Your browser does not support the video tag.
 </video>
 
